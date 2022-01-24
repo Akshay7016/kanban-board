@@ -14,19 +14,43 @@ function App() {
 
   const action = ['backlog', 'todo', 'inprogress', 'done']
 
-  const [newTask, setNewTask] = useState("");
+  const [boards, setBoards] = useState([
+    {
+      id: Date.now() + Math.random() * 2,
+      title: action[0],
+      cards: [
+        {
+          id: Date.now() + Math.random(),
+          name: "Card 1",
+          stage: 0
+        },
+        {
+          id: Date.now() + Math.random(),
+          name: "Card 2",
+          stage: 0
+        }
+      ]
+    },
+    {
+      id: Date.now() + Math.random() * 2,
+      title: action[1],
+      cards: []
+    },
+    {
+      id: Date.now() + Math.random() * 2,
+      title: action[2],
+      cards: []
+    },
+    {
+      id: Date.now() + Math.random() * 2,
+      title: action[3],
+      cards: []
+    }
 
-  const [task, setTask] = useState(intialTask);
 
-  const addTaskHandler = (newTask) => {
-    const updatedTask = [newTask, ...task];
-    setTask(updatedTask);
-    console.log(task);
-  }
+  ])
 
-  const changeHandler = (event) => {
-    setNewTask(event.target.value);
-  }
+
 
   return (
     <div className='app'>
@@ -35,16 +59,17 @@ function App() {
       </div>
 
       <div className="app_title">
-        <input type="text" value={newTask} onChange={changeHandler} placeholder="Enter title"></input>
-        <button type="submit" class="btn btn-primary ml-2" onClick={addTaskHandler}>Add</button>
+        <input type="text" placeholder="Enter title"></input>
+        <button type="submit" class="btn btn-primary ml-2" >Add</button>
       </div>
 
       <div className='app_outer'>
         <div className='app_boards'>
-          <Board board_name={action[0]} />
-          <Board board_name={action[1]} />
-          <Board board_name={action[2]} />
-          <Board board_name={action[3]} />
+          {
+            boards.map((item) => (
+              <Board key={item.id} board={item} />
+            ))
+          }
         </div>
       </div>
     </div>

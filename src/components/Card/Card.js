@@ -15,7 +15,7 @@ function Card(props) {
 
 
       </div>
-      <div className="card_title">Java Programming</div>
+      <div className="card_title">{props.card?.name}</div>
       <div className="card_footer">
         {/* <p>
           <Clock />
