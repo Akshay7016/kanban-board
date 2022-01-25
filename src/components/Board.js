@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import { MoreHorizontal } from "react-feather";
+import React from "react";
 
 import Card from '../components/Card/Card'
 import "./Board.css";
@@ -15,7 +14,13 @@ function Board(props) {
             </div>
             <div className="board_cards custom-scroll">
                 {props.board?.cards?.map((item) => (
-                    <Card key={item.id} card={item} />
+                    <Card key={item.id}
+                          card={item}
+                          boardId={props.board.id}
+                          removeCard={props.removeCard} 
+                          goForward={props.goForward}
+                          goBackward={props.goBackward}
+                          />
                 ))}
             </div>
         </div>
