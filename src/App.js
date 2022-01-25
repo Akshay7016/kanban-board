@@ -5,7 +5,7 @@ import Board from './components/Board/Board';
 
 function App() {
 
-  const action = ['backlog', 'todo', 'inprogress', 'done']
+  const action = ['Backlog', 'To Do', 'Inprogress', 'Done']
   const [newTask, setNewTask] = useState("");
 
   const [boards, setBoards] = useState([
