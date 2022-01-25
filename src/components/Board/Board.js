@@ -1,6 +1,6 @@
 import React from "react";
 
-import Card from '../components/Card/Card'
+import Card from '../Card/Card'
 import "./Board.css";
 
 function Board(props) {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import Board from './components/Board';
+import Board from './components/Board/Board';
 
 
 function App() {
@@ -50,11 +50,13 @@ function App() {
 
   const addCard = () => {
     const tempBoards = [...boards];
+
     tempBoards[0].cards.push({
       id: Date.now() + Math.random() * 2,
       name: newTask,
       stage: 0
     });
+    
     setBoards(tempBoards);
     setNewTask("")
   };
@@ -69,6 +71,7 @@ function App() {
     const cardIndex = cards.findIndex((item) => item.id === cid);
     if (cardIndex < 0) return;
 
+    // To remove card
     cards.splice(cardIndex, 1);
     setBoards(tempBoards);
   };
