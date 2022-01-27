@@ -13,8 +13,8 @@ function Card(props) {
       <div className="card_title">{props.card?.name}</div>
 
       <div className="card_footer">
-        <p onClick={() => props.goBackward(props.boardId, id)}>{<ArrowLeftCircle />}</p>
-        <p onClick={() => props.goForward(props.boardId, id)}>{<ArrowRightCircle />}</p>
+        <p className={`first_board${props.boardId}`} onClick={() => props.goBackward(props.boardId, id)}>{<ArrowLeftCircle />}</p>
+        <p className={`last_board${props.boardId}`} onClick={() => props.goForward(props.boardId, id)}>{<ArrowRightCircle />}</p>
         <p onClick={() => props.removeCard(props.boardId, id)}>{<Trash2 />}</p>
       </div>
     </div>
