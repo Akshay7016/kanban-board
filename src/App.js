@@ -1,48 +1,66 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Board from './components/Board/Board';
+import { v4 } from 'uuid';
 
 
-function App() {
+const initialTask = [
+  {
+    id: 0,
+    title: "Backlog",
+    cards: [
+      {
+        id: v4(),
+        name: "Card 1",
+        stage: 0
+      },
+      {
+        id: v4(),
+        name: "Card 2",
+        stage: 0
+      }
+    ]
+  },
+  {
+    id: 1,
+    title: "To Do",
+    cards: []
+  },
+  {
+    id: 2,
+    title: "Inprogress",
+    cards: []
+  },
+  {
+    id: 3,
+    title: "Done",
+    cards: []
+  }
 
-  const action = ['Backlog', 'To Do', 'Inprogress', 'Done']
+
+];
+
+
+const App = () => {
+
+  const [boards, setBoards] = useState(initialTask);
   const [newTask, setNewTask] = useState("");
 
-  const [boards, setBoards] = useState([
-    {
-      id: 0,
-      title: action[0],
-      cards: [
-        {
-          id: Date.now() + Math.random(),
-          name: "Card 1",
-          stage: 0
-        },
-        {
-          id: Date.now() + Math.random(),
-          name: "Card 2",
-          stage: 0
-        }
-      ]
-    },
-    {
-      id: 1,
-      title: action[1],
-      cards: []
-    },
-    {
-      id: 2,
-      title: action[2],
-      cards: []
-    },
-    {
-      id: 3,
-      title: action[3],
-      cards: []
+  // useEffect() is used to render some data before any other component gets loaded
+  useEffect(() => {
+    const localBoards = localStorage.getItem("boards");
+
+    if (localBoards) {
+      setBoards(JSON.parse(localBoards))
     }
+  }, []
+  )
 
-
-  ])
+  // If there is some minor change in "boards" then do all the stuff did in callback
+  useEffect(() => {
+    localStorage.setItem("boards", JSON.stringify(boards));
+  }, [boards]
+  )
 
   const changeHandler = (event) => {
     setNewTask(event.target.value);
@@ -56,7 +74,7 @@ function App() {
       name: newTask,
       stage: 0
     });
-    
+
     setBoards(tempBoards);
     setNewTask("")
   };
@@ -92,10 +110,10 @@ function App() {
 
       //Deletion of card
       cards.splice(cardIndex, 1);
-      
+
       // Adding card to next board (i.e board + 1)
       tempBoards[board_id].cards.push(removed_card);
-      setBoards(tempBoards);      
+      setBoards(tempBoards);
     }
     else {
       return;
@@ -118,7 +136,7 @@ function App() {
 
       //Deletion of card
       cards.splice(cardIndex, 1);
-      
+
       // Adding card to next board (i.e board + 1)
       tempBoards[board_id].cards.push(removed_card);
       setBoards(tempBoards);
